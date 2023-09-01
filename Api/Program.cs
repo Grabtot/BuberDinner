@@ -1,36 +1,37 @@
+using BuberDinner.Application;
+using BuberDinner.Infrastructure;
+using System.Reflection;
 
-namespace DuberDinner.Api
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 {
-    public class Program
+    builder.Services.AddControllers();
+
+    builder.Services.AddApplication();
+    builder.Services.AddInfrastructure();
+    builder.Services.AddApplication();
+
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen(options =>
     {
-        public static void Main(string[] args)
-        {
-            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            WebApplication app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-
-            app.MapControllers();
-
-            app.Run();
-        }
+        string fileName = Assembly.GetExecutingAssembly().GetName().Name ?? "Api";
+        string path = Path.Combine(AppContext.BaseDirectory, fileName + ".xml");
+        options.IncludeXmlComments(path);
+    });
+}
+WebApplication app = builder.Build();
+{
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
     }
+
+    app.UseHttpsRedirection();
+
+    app.UseAuthorization();
+
+
+    app.MapControllers();
+
+    app.Run();
 }
