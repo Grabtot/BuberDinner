@@ -1,3 +1,4 @@
+using BuberDinner.Api.Middleware;
 using BuberDinner.Application;
 using BuberDinner.Infrastructure;
 using System.Reflection;
@@ -29,6 +30,7 @@ WebApplication app = builder.Build();
 
     app.UseAuthorization();
 
+    app.UseErrorHandlingMiddleware();
 
     app.MapControllers();
 
