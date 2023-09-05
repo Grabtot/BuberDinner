@@ -1,15 +1,21 @@
-﻿//using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 
-//namespace BuberDinner.Api.Controllers
-//{
+namespace BuberDinner.Api.Controllers
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    public class ErrorController : ControllerBase
+    {
+        [Route("/error")]
 
-//    public class ErrorController : ControllerBase
-//    {
-//        [Route("/error")]
+        public IActionResult Error()
+        {
+            Exception? exception = HttpContext.Features
+                .Get<IExceptionHandlerFeature>()?.Error;
 
-//        public IActionResult Error()
-//        {
-//            return Problem();
-//        }
-//    }
-//}
+            return Problem(
+                statusCode: StatusCodes.Status500InternalServerError,
+                title: exception?.Message);
+        }
+    }
+}
