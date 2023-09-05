@@ -15,7 +15,7 @@ namespace BuberDinner.Api.Controllers
             _authenticationService = authenticationService;
         }
 
-        [HttpGet("login")]
+        [HttpPost("login")]
         public IActionResult Login(LoginRequest request)
         {
             AuthenticationResult result = _authenticationService.Login(
@@ -24,10 +24,10 @@ namespace BuberDinner.Api.Controllers
 
             AuthenticationResponse response = new()
             {
-                Id = result.Id,
-                Email = result.Email,
-                FirstName = result.FirstName,
-                LastName = result.LastName,
+                Id = result.User.Id,
+                Email = result.User.Email,
+                FirstName = result.User.FirstName,
+                LastName = result.User.LastName,
                 Token = result.Token,
             };
 
@@ -45,10 +45,10 @@ namespace BuberDinner.Api.Controllers
 
             AuthenticationResponse response = new()
             {
-                Id = result.Id,
-                Email = result.Email,
-                FirstName = result.FirstName,
-                LastName = result.LastName,
+                Id = result.User.Id,
+                Email = result.User.Email,
+                FirstName = result.User.FirstName,
+                LastName = result.User.LastName,
                 Token = result.Token,
             };
 
