@@ -1,9 +1,8 @@
-﻿using MediatR;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace BuberDinner.Contracts.Authentication
 {
-    public record RegisterRequest : IRequest
+    public record RegisterRequest
     {
         [DefaultValue("Daniil")]
         public string FirstName { get; init; }

@@ -1,6 +1,9 @@
 ﻿using BuberDinner.Application.Authentication;
+using BuberDinner.Application.Authentication.Commands;
+using BuberDinner.Application.Authentication.Queries;
 using BuberDinner.Contracts.Authentication;
 using ErrorOr;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuberDinner.Api.Controllers
@@ -8,12 +11,13 @@ namespace BuberDinner.Api.Controllers
     [Route("auth")]
     public class AuthenticationController : ApiController
     {
-        private readonly IAuthenticationService _authenticationService;
+        private readonly ISender _sender;
 
-        public AuthenticationController(IAuthenticationService authenticationService)
+        public AuthenticationController(ISender sender)
         {
-            _authenticationService = authenticationService;
+            _sender = sender;
         }
+
 
         /// <summary>
         /// Login the user
@@ -25,23 +29,23 @@ namespace BuberDinner.Api.Controllers
         /// <respoce code="500">Error</respoce>
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
-        public IActionResult Login(LoginRequest request)
+        public async Task<IActionResult> Login(LoginRequest request)
         {
-            ErrorOr<AuthenticationResult> result = _authenticationService.Login(
+            ErrorOr<AuthenticationResult> result = await _sender.Send(new LoginQuery(
                 request.Email,
-                request.Password);
+                request.Password));
 
             return result.Match(result => Ok(MapResult(result)), Problem);
         }
 
         [HttpPost("register")]
-        public IActionResult Register(RegisterRequest request)
+        public async Task<IActionResult> Register(RegisterRequest request)
         {
-            ErrorOr<AuthenticationResult> result = _authenticationService.Register(
+            ErrorOr<AuthenticationResult> result = await _sender.Send(new RegisterCommand(
                 request.FirstName,
                 request.LastName,
                 request.Email,
-                request.Password);
+                request.Password));
 
             return result.Match(authResult => Ok(MapResult(authResult)), Problem);
         }

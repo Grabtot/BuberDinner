@@ -1,9 +1,8 @@
-﻿using MediatR;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace BuberDinner.Contracts.Authentication
 {
-    public record LoginRequest : IRequest
+    public record LoginRequest
     {
         [DefaultValue("dneshotkin@gmail.com")]
         public string Email { get; init; }
