@@ -1,4 +1,5 @@
-﻿using BuberDinner.Application.Common.Interfaces.Authentication;
+﻿using BuberDinner.Application.Common.Errors;
+using BuberDinner.Application.Common.Interfaces.Authentication;
 using BuberDinner.Application.Common.Interfaces.Persistence;
 using BuberDinner.Domain.Entities;
 
@@ -31,7 +32,7 @@ namespace BuberDinner.Application.Authentication
         {
             if (_userRepository.GetByEmail(email) != null)
             {
-                throw new InvalidOperationException("User with given email already exists");
+                throw new DuplicateEmailException();
             }
 
 

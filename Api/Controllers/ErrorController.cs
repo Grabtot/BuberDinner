@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using BuberDinner.Application.Common.Errors;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuberDinner.Api.Controllers
@@ -13,9 +14,16 @@ namespace BuberDinner.Api.Controllers
             Exception? exception = HttpContext.Features
                 .Get<IExceptionHandlerFeature>()?.Error;
 
+            (int statusCode, string message) = exception switch
+            {
+                IServiceException serviceException => (serviceException.StatusCode, serviceException.Message),
+                InvalidOperationException ex => (StatusCodes.Status400BadRequest, ex.Message),
+                _ => (StatusCodes.Status500InternalServerError, "An error occurred while processing your request")
+            };
+
             return Problem(
-                statusCode: StatusCodes.Status500InternalServerError,
-                title: exception?.Message);
+                statusCode: statusCode,
+                title: message);
         }
     }
 }
