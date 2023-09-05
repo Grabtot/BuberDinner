@@ -1,12 +1,12 @@
 ﻿using BuberDinner.Application.Authentication;
 using BuberDinner.Contracts.Authentication;
+using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuberDinner.Api.Controllers
 {
     [Route("auth")]
-    [ApiController]
-    public class AuthenticationController : ControllerBase
+    public class AuthenticationController : ApiController
     {
         private readonly IAuthenticationService _authenticationService;
 
@@ -27,32 +27,28 @@ namespace BuberDinner.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
         public IActionResult Login(LoginRequest request)
         {
-            AuthenticationResult result = _authenticationService.Login(
+            ErrorOr<AuthenticationResult> result = _authenticationService.Login(
                 request.Email,
                 request.Password);
 
-            AuthenticationResponse response = new()
-            {
-                Id = result.User.Id,
-                Email = result.User.Email,
-                FirstName = result.User.FirstName,
-                LastName = result.User.LastName,
-                Token = result.Token,
-            };
-
-            return Ok(response);
+            return result.Match(result => Ok(MapResult(result)), Problem);
         }
 
         [HttpPost("register")]
         public IActionResult Register(RegisterRequest request)
         {
-            AuthenticationResult result = _authenticationService.Register(
+            ErrorOr<AuthenticationResult> result = _authenticationService.Register(
                 request.FirstName,
                 request.LastName,
                 request.Email,
                 request.Password);
 
-            AuthenticationResponse response = new()
+            return result.Match(authResult => Ok(MapResult(authResult)), Problem);
+        }
+
+        private static AuthenticationResponse MapResult(AuthenticationResult result)
+        {
+            return new()
             {
                 Id = result.User.Id,
                 Email = result.User.Email,
@@ -60,8 +56,6 @@ namespace BuberDinner.Api.Controllers
                 LastName = result.User.LastName,
                 Token = result.Token,
             };
-
-            return Ok(response);
         }
     }
 }
