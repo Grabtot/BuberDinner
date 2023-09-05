@@ -15,7 +15,16 @@ namespace BuberDinner.Api.Controllers
             _authenticationService = authenticationService;
         }
 
+        /// <summary>
+        /// Login the user
+        /// </summary>
+        /// <remarks>
+        /// POST auth/login
+        /// </remarks>
+        /// <param name="request">Model with login info</param>
+        /// <respoce code="500">Error</respoce>
         [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
         public IActionResult Login(LoginRequest request)
         {
             AuthenticationResult result = _authenticationService.Login(
