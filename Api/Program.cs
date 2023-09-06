@@ -1,11 +1,11 @@
+using BuberDinner.Api;
 using BuberDinner.Application;
 using BuberDinner.Infrastructure;
 using System.Reflection;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-
+builder.Services.AddPresentation();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
@@ -22,10 +22,8 @@ WebApplication app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(config => config.DisplayRequestDuration());
 }
-
-app.UseExceptionHandler("/error/");
 
 app.UseHttpsRedirection();
 

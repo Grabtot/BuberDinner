@@ -23,11 +23,11 @@ namespace BuberDinner.Application.Authentication.Queries
             User? user = _userRepository.GetByEmail(query.Email);
 
             if (user is null || user.Password != query.Password)
-                return Errors.Authentication.WrongCredentials;
+                return await Task.FromResult(Errors.Authentication.WrongCredentials);
 
             string token = _jwtTokenGenerator.GenerateToken(user);
 
-            return new AuthenticationResult(user, token);
+            return await Task.FromResult(new AuthenticationResult(user, token));
         }
     }
 }

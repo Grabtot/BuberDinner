@@ -22,7 +22,7 @@ namespace BuberDinner.Application.Authentication.Commands
         {
             if (_userRepository.GetByEmail(command.Email) != null)
             {
-                return Errors.User.DuplicateEmail;
+                return await Task.FromResult(Errors.User.DuplicateEmail);
             }
 
             User user = new()
@@ -37,7 +37,7 @@ namespace BuberDinner.Application.Authentication.Commands
 
             string token = _jwtTokenGenerator.GenerateToken(user);
 
-            return new AuthenticationResult(user, token);
+            return await Task.FromResult(new AuthenticationResult(user, token));
         }
     }
 }
