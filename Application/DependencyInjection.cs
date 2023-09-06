@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using BuberDinner.Application.Common.Behaviors;
+using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace BuberDinner.Application
 {
@@ -9,6 +13,10 @@ namespace BuberDinner.Application
             services.AddMediatR(config
                 => config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
 
+            services.AddScoped(
+                typeof(IPipelineBehavior<,>),
+                typeof(ValidationBehavior<,>));
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             return services;
         }
     }
