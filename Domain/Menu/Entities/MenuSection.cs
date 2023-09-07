@@ -14,18 +14,21 @@ namespace BuberDinner.Domain.Menu.Entities
         private MenuSection(
             MenuSectionId menuSectionId,
             string name,
-            string description) : base(menuSectionId)
+            string description,
+            List<MenuItem>? items = null) : base(menuSectionId)
         {
             Name = name;
             Description = description;
+            _items = items ?? new List<MenuItem>();
         }
 
-        public static MenuSection Create(string name, string description)
+        public static MenuSection Create(string name, string description, List<MenuItem>? items = null)
         {
             return new(
                 MenuSectionId.CreateUnique(),
                 name,
-                description);
+                description,
+                items);
         }
     }
 }

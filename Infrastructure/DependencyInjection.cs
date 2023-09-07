@@ -21,6 +21,7 @@ namespace BuberDinner.Infrastructure
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IMenuRepository, MenuRepository>();
 
             return services;
         }
