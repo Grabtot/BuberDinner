@@ -13,11 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Cont
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{398E3EF9-794E-4E15-B9E9-4B19653D13C4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{2AB9EEDD-8DE4-4B94-9642-56F821AB46A6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DomainModels", "DomainModels", "{AF94B9AC-9D57-40FA-92E5-6D1F6EBA18F5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CEFC23E1-B539-4EAB-8DF3-24324DEBF77C}"
 	ProjectSection(SolutionItems) = preProject
-		Aggregates.Menu.md = Aggregates.Menu.md
+		Docs\DomainModels\Aggregates.Menu.md = Docs\DomainModels\Aggregates.Menu.md
 	EndProjectSection
 EndProject
 Global
@@ -49,9 +47,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{AF94B9AC-9D57-40FA-92E5-6D1F6EBA18F5} = {2AB9EEDD-8DE4-4B94-9642-56F821AB46A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {81AD7C4D-D0EE-499B-A772-D91146DA4844}
