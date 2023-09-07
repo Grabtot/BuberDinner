@@ -10,5 +10,12 @@ namespace BuberDinner.Domain.Common.Errors
                 code: "User.DuplicateEmail",
                 description: "Account already exists");
         }
+
+        public static class Dinner
+        {
+            public static Error MaxGuestsCount => Error.Conflict(
+                code: "Dinner.MaxGuestsCount",
+                description: "Dinner can not receive so many guests");
+        }
     }
 }

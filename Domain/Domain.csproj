@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Bill\Entities\" />
-    <Folder Include="Dinner\ValueObjects\" />
   </ItemGroup>
 
 </Project>
