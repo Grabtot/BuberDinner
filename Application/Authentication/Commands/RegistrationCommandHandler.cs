@@ -25,13 +25,11 @@ namespace BuberDinner.Application.Authentication.Commands
                 return await Task.FromResult(Errors.User.DuplicateEmail);
             }
 
-            User user = new()
-            {
-                Email = command.Email,
-                FirstName = command.FirstName,
-                LastName = command.LastName,
-                Password = command.Password
-            };
+            User user = User.Create(
+                 command.Email,
+                 command.FirstName,
+                 command.LastName,
+                 command.Password);
 
             _userRepository.Add(user);
 

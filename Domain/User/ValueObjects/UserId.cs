@@ -1,17 +1,17 @@
 ﻿using BuberDinner.Domain.Models;
 
-namespace BuberDinner.Domain.Guest.ValueObjects
+namespace BuberDinner.Domain.User.ValueObjects
 {
-    public sealed class GuestId : ValueObject
+    public sealed class UserId : ValueObject
     {
         public Guid Value { get; private set; }
 
-        private GuestId(Guid value)
+        private UserId(Guid value)
         {
             Value = value;
         }
 
-        public static GuestId CreateUnique()
+        public static UserId GenerateUnique()
             => new(Guid.NewGuid());
 
         public override IEnumerable<object> GetEqualityComponents()

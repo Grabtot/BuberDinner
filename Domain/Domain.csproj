@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <Folder Include="Bill\Entities\" />
+    <Folder Include="Common\Entities\" />
   </ItemGroup>
 
 </Project>
