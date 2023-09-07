@@ -17,5 +17,10 @@ namespace BuberDinner.Domain.Host.ValueObjects
         {
             yield return Value;
         }
+
+        public static HostId Create(string hostId)
+        {
+            return new(Guid.Parse(hostId));
+        }
     }
 }
