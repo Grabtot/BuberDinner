@@ -20,6 +20,8 @@ namespace BuberDinner.Domain.Dinner.ValueObjects
             Longitude = longitude;
         }
 
+        private Location() { }
+
         public bool IsWithinDistance(Location otherLocation, double radiusInKilometers)
         {
             double earthRadius = 6371;

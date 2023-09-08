@@ -11,8 +11,10 @@ namespace BuberDinner.Domain.Common.ValueObjects
             Value = value;
         }
 
-        public static RatingId CreateUnique()
-            => new(Guid.NewGuid());
+        private RatingId() { }
+
+        public static RatingId Create(Guid id) => new(id);
+        public static RatingId CreateUnique() => new(Guid.NewGuid());
 
         public override IEnumerable<object> GetEqualityComponents()
         {

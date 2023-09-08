@@ -14,12 +14,12 @@ namespace BuberDinner.Domain.Menu
         private readonly List<DinnerId> _dinnerIds = new();
         private readonly List<MenuReviewId> _menuReviewIds = new();
 
-        public string Name { get; }
-        public string Description { get; }
-        public AverageRating AverageRating { get; }
-        public DateTime CreatedDateTime { get; }
-        public DateTime UpdatedDateTime { get; }
-        public HostId HostId { get; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public AverageRating AverageRating { get; private set; }
+        public DateTime CreatedDateTime { get; private set; }
+        public DateTime UpdatedDateTime { get; private set; }
+        public HostId HostId { get; private set; }
 
         public IReadOnlyList<MenuSection> Sections
             => _sections.AsReadOnly();
@@ -49,6 +49,7 @@ namespace BuberDinner.Domain.Menu
             _sections = sections ?? new List<MenuSection>();
         }
 
+        private Menu() { }
         public static Menu Create(
             string name,
             string description,

@@ -11,8 +11,12 @@ namespace BuberDinner.Domain.Dinner.ValueObjects
             Value = value;
         }
 
+        private ReservationId() { }
+
         public static ReservationId CreateUnique()
             => new(Guid.NewGuid());
+
+        public static ReservationId Create(Guid id) => new(id);
 
         public override IEnumerable<object> GetEqualityComponents()
         {

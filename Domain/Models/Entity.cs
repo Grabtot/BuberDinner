@@ -9,6 +9,7 @@
             Id = id;
         }
 
+        protected Entity() { }
         public bool Equals(Entity<TId>? other)
         {
             return Equals((object?)other);

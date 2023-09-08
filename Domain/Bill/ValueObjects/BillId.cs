@@ -11,6 +11,8 @@ namespace BuberDinner.Domain.Bill.ValueObjects
             Value = value;
         }
 
+        private BillId() { }
+
         public static BillId CreateUnique()
             => new(Guid.NewGuid());
 

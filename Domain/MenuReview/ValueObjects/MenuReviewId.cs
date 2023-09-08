@@ -11,6 +11,10 @@ namespace BuberDinner.Domain.MenuReview.ValueObjects
             Value = value;
         }
 
+        private MenuReviewId() { }
+
+        public static MenuReviewId Create(Guid id) => new(id);
+
         public static MenuReviewId CreateUnique() => new(Guid.NewGuid());
 
         public override IEnumerable<object> GetEqualityComponents()

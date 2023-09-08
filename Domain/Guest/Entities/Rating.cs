@@ -7,11 +7,11 @@ namespace BuberDinner.Domain.Guest.Entities
 {
     public sealed class Rating : Entity<RatingId>
     {
-        public double Value { get; }
-        public HostId HostId { get; }
-        public DinnerId DinnerId { get; }
-        public DateTime CreatedDateTime { get; }
-        public DateTime UpdatedDateTime { get; }
+        public double Value { get; private set; }
+        public HostId HostId { get; private set; }
+        public DinnerId DinnerId { get; private set; }
+        public DateTime CreatedDateTime { get; private set; }
+        public DateTime UpdatedDateTime { get; private set; }
 
         private Rating(RatingId id,
                        double value,
@@ -26,6 +26,8 @@ namespace BuberDinner.Domain.Guest.Entities
             CreatedDateTime = createdDateTime;
             UpdatedDateTime = updatedDateTime;
         }
+
+        private Rating() { }
 
         public static Rating Create(double value,
                                     HostId hostId,
