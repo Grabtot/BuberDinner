@@ -19,5 +19,10 @@ namespace BuberDinner.Domain.Menu.ValueObjects
         {
             yield return Value;
         }
+
+        public static MenuId Create(string id)
+        {
+            return new(Guid.Parse(id));
+        }
     }
 }

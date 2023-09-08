@@ -1,4 +1,5 @@
 ﻿using BuberDinner.Application.Menus.Commands.CreateMenu;
+using BuberDinner.Application.Menus.Queries;
 using BuberDinner.Contracts.Menus;
 using BuberDinner.Domain.Menu;
 using ErrorOr;
@@ -18,6 +19,15 @@ namespace BuberDinner.Api.Controllers
             _mapper = mapper;
             _sender = sender;
         }
+        [HttpGet("{menuId}")]
+        public async Task<IActionResult> Get(string menuId)
+        {
+            MenuDetailsQuery query = new(menuId);
+
+            ErrorOr<Menu> result = await _sender.Send(query);
+
+            return result.Match(menu => Ok(_mapper.Map<MenuResponse>(menu)), Problem);
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateMenu(CreateMenuRequest request, string hostId)
@@ -26,7 +36,7 @@ namespace BuberDinner.Api.Controllers
 
             ErrorOr<Menu> result = await _sender.Send(command);
 
-            return result.Match(Ok, Problem);
+            return result.Match(menu => CreatedAtAction(nameof(Get), new { hostId, menuId = menu.Id.Value.ToString() }, null), Problem);
         }
     }
 }

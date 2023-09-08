@@ -3,7 +3,7 @@
     public record CreateMenuRequest(
         string Name,
         string Description,
-        List<MenuSection> Sections);
+        List<MenuSection>? Sections);
 
     public record MenuSection(
         string Name,

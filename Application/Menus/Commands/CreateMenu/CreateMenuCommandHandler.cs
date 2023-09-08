@@ -25,7 +25,7 @@ namespace BuberDinner.Application.Menus.Commands.CreateMenu
                 name: command.Name,
                 description: command.Description,
                 hostId: HostId.Create(command.HostId),
-                sections: command.Sections.ConvertAll(menu => MenuSection.Create(
+                sections: command.Sections?.ConvertAll(menu => MenuSection.Create(
                     name: menu.Name,
                     description: menu.Description,
                     items: menu.Items.ConvertAll(item => MenuItem.Create(

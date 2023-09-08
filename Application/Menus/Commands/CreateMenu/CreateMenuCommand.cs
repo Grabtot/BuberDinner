@@ -8,7 +8,7 @@ namespace BuberDinner.Application.Menus.Commands.CreateMenu
       string Name,
       string Description,
       string HostId,
-      List<MenuSectionCommand> Sections) : IRequest<ErrorOr<Menu>>;
+      List<MenuSectionCommand>? Sections) : IRequest<ErrorOr<Menu>>;
 
     public record MenuSectionCommand(
         string Name,
