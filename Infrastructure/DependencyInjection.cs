@@ -31,10 +31,10 @@ namespace BuberDinner.Infrastructure
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                //  string connectionString = configuration.GetConnectionString("BuberDinner")
-                //      ?? throw new Exception("No db connection provider");
+                string connectionString = configuration.GetConnectionString("Docker")
+                     ?? throw new Exception("No db connection provider");
 
-                options.UseSqlServer();
+                options.UseSqlServer(connectionString);
             });
 
             services.AddScoped<IUserRepository, UserRepository>();
