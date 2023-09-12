@@ -4,6 +4,7 @@ using BuberDinner.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuberDinner.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230912131614_AddHosts")]
+    partial class AddHosts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,37 +80,6 @@ namespace BuberDinner.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Dinner");
-                });
-
-            modelBuilder.Entity("BuberDinner.Domain.Guest.Guest", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProfileImage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Guest");
                 });
 
             modelBuilder.Entity("BuberDinner.Domain.Host.Host", b =>
@@ -265,152 +237,6 @@ namespace BuberDinner.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Reservations");
-                });
-
-            modelBuilder.Entity("BuberDinner.Domain.Guest.Guest", b =>
-                {
-                    b.OwnsMany("BuberDinner.Domain.Bill.ValueObjects.BillId", "BillIds", b1 =>
-                        {
-                            b1.Property<Guid>("Value")
-                                .HasColumnType("uniqueidentifier")
-                                .HasColumnName("GuestBillId");
-
-                            b1.Property<Guid>("GuestId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.HasKey("Value", "GuestId");
-
-                            b1.HasIndex("GuestId");
-
-                            b1.ToTable("GuestBillIds", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("GuestId");
-                        });
-
-                    b.OwnsMany("BuberDinner.Domain.Guest.Entities.Rating", "Ratings", b1 =>
-                        {
-                            b1.Property<Guid>("Id")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<Guid>("GuestId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<DateTime>("CreatedDateTime")
-                                .HasColumnType("datetime2");
-
-                            b1.Property<Guid>("DinnerId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<Guid>("HostId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<DateTime>("UpdatedDateTime")
-                                .HasColumnType("datetime2");
-
-                            b1.Property<double>("Value")
-                                .HasColumnType("float");
-
-                            b1.HasKey("Id", "GuestId");
-
-                            b1.HasIndex("GuestId");
-
-                            b1.ToTable("GuestRatings", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("GuestId");
-                        });
-
-                    b.OwnsOne("BuberDinner.Domain.Common.ValueObjects.AverageRating", "AverageRating", b1 =>
-                        {
-                            b1.Property<Guid>("GuestId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("RatingsCount")
-                                .HasColumnType("int");
-
-                            b1.Property<double>("Value")
-                                .HasColumnType("float");
-
-                            b1.HasKey("GuestId");
-
-                            b1.ToTable("Guest");
-
-                            b1.WithOwner()
-                                .HasForeignKey("GuestId");
-                        });
-
-                    b.OwnsMany("BuberDinner.Domain.MenuReview.ValueObjects.MenuReviewId", "MenuReviewIds", b1 =>
-                        {
-                            b1.Property<Guid>("Value")
-                                .HasColumnType("uniqueidentifier")
-                                .HasColumnName("GuestMenuReviewId");
-
-                            b1.Property<Guid>("GuestId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.HasKey("Value", "GuestId");
-
-                            b1.HasIndex("GuestId");
-
-                            b1.ToTable("GuestMenuReviewIds", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("GuestId");
-                        });
-
-                    b.OwnsMany("BuberDinner.Domain.Dinner.ValueObjects.DinnerId", "PastDinnerIds", b1 =>
-                        {
-                            b1.Property<Guid>("GuestId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("Id")
-                                .HasColumnType("int");
-
-                            b1.Property<Guid>("Value")
-                                .HasColumnType("uniqueidentifier")
-                                .HasColumnName("GuestDinnerId");
-
-                            b1.HasKey("GuestId", "Id");
-
-                            b1.ToTable("GuestPendingDinnerIds", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("GuestId");
-                        });
-
-                    b.OwnsMany("BuberDinner.Domain.Dinner.ValueObjects.DinnerId", "PendingDinnerIds", b1 =>
-                        {
-                            b1.Property<Guid>("GuestId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("Id")
-                                .HasColumnType("int");
-
-                            b1.Property<Guid>("Value")
-                                .HasColumnType("uniqueidentifier")
-                                .HasColumnName("GuestDinnerId");
-
-                            b1.HasKey("GuestId", "Id");
-
-                            b1.ToTable("GuestPastDinnerIds", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("GuestId");
-                        });
-
-                    b.Navigation("AverageRating")
-                        .IsRequired();
-
-                    b.Navigation("BillIds");
-
-                    b.Navigation("MenuReviewIds");
-
-                    b.Navigation("PastDinnerIds");
-
-                    b.Navigation("PendingDinnerIds");
-
-                    b.Navigation("Ratings");
                 });
 
             modelBuilder.Entity("BuberDinner.Domain.Host.Host", b =>

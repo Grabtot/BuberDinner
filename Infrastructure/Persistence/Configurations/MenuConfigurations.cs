@@ -1,9 +1,9 @@
-﻿using BuberDinner.Domain.Host.ValueObjects;
-using BuberDinner.Domain.Menu;
+﻿using BuberDinner.Domain.Menu;
 using BuberDinner.Domain.Menu.Entities;
 using BuberDinner.Domain.Menu.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using static BuberDinner.Infrastructure.Persistence.Configurations.Common.IdConvertors;
 
 namespace BuberDinner.Infrastructure.Persistence.Configurations
 {
@@ -125,9 +125,7 @@ namespace BuberDinner.Infrastructure.Persistence.Configurations
             builder.OwnsOne(menu => menu.AverageRating);
 
             builder.Property(menu => menu.HostId)
-                   .HasConversion(
-                id => id.Value,
-                value => HostId.Create(value));
+                   .HasConversion(HostIdConvertor);
         }
     }
 }

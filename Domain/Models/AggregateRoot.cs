@@ -5,8 +5,9 @@
     {
         public new AggregateRootId<TIdType> Id { get; protected set; }
 
-        protected AggregateRoot(TId id) : base(id)
+        protected AggregateRoot(TId id)
         {
+            Id = id;
         }
 
         protected AggregateRoot() { }
