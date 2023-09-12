@@ -9,7 +9,7 @@ using BuberDinner.Domain.Models;
 namespace BuberDinner.Domain.MenuReview
 {
     public sealed class MenuReview
-        : AggregateRoot<MenuReviewId>
+        : AggregateRoot<MenuReviewId, Guid>
     {
         public Rating Rating { get; private set; }
         public string Comment { get; private set; }

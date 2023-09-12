@@ -9,7 +9,7 @@ using Rating = BuberDinner.Domain.Guest.Entities.Rating;
 
 namespace BuberDinner.Domain.Guest
 {
-    public sealed class Guest : AggregateRoot<GuestId>
+    public sealed class Guest : AggregateRoot<GuestId, Guid>
     {
         private readonly List<DinnerId> _pastDinnerIds = new();
         private readonly List<DinnerId> _pendingDinnerIds = new();

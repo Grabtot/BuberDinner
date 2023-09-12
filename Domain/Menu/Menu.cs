@@ -8,7 +8,7 @@ using BuberDinner.Domain.Models;
 
 namespace BuberDinner.Domain.Menu
 {
-    public sealed class Menu : AggregateRoot<MenuId>
+    public sealed class Menu : AggregateRoot<MenuId, Guid>
     {
         private readonly List<MenuSection> _sections = new();
         private readonly List<DinnerId> _dinnerIds = new();

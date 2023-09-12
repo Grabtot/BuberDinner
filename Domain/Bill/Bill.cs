@@ -7,7 +7,7 @@ using BuberDinner.Domain.Models;
 
 namespace BuberDinner.Domain.Bill
 {
-    public sealed class Bill : AggregateRoot<BillId>
+    public sealed class Bill : AggregateRoot<BillId, Guid>
     {
         public DinnerId DinnerId { get; private set; }
         public GuestId GuestId { get; private set; }
