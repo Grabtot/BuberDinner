@@ -1,4 +1,9 @@
-﻿using ErrorOr;
+﻿using BuberDinner.Application.Menus.Commands.CreateMenu;
+using BuberDinner.Application.Menus.Queries.AllHostMenus;
+using BuberDinner.Application.Menus.Queries.Details;
+using BuberDinner.Contracts.Menus;
+using BuberDinner.Domain.Menu;
+using ErrorOr;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -9,17 +14,17 @@ namespace BuberDinner.Api.Controllers
     public class MenuController : ApiController
     {
         private readonly IMapper _mapper;
-        private readonly ISender _sender;
+        private readonly ISender _mediator;
         public MenuController(IMapper mapper, ISender sender)
         {
             _mapper = mapper;
-            _sender = sender;
+            _mediator = sender;
         }
 
         [HttpGet]
-        public Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(string hostId)
         {
-            return _sender.Send(new AllHostMenusQuery)
+            return Ok(await _mediator.Send(new AllHostMenusQuery(hostId)));
         }
 
         [HttpGet("{menuId}")]
@@ -27,7 +32,7 @@ namespace BuberDinner.Api.Controllers
         {
             MenuDetailsQuery query = new(menuId);
 
-            ErrorOr<Menu> result = await _sender.Send(query);
+            ErrorOr<Menu> result = await _mediator.Send(query);
 
             return result.Match(menu => Ok(_mapper.Map<MenuResponse>(menu)), Problem);
         }
@@ -37,7 +42,7 @@ namespace BuberDinner.Api.Controllers
         {
             CreateMenuCommand command = _mapper.Map<CreateMenuCommand>((request, hostId));
 
-            ErrorOr<Menu> result = await _sender.Send(command);
+            ErrorOr<Menu> result = await _mediator.Send(command);
 
             return result.Match(menu => CreatedAtAction(nameof(Get), new { hostId, menuId = menu.Id.Value.ToString() }, null), Problem);
         }

@@ -8,6 +8,6 @@ namespace BuberDinner.Application.Common.Interfaces.Persistence
     {
         void Add(Menu menu);
         Menu? GetById(MenuId id);
-        public IEnumerable<Menu> GetByHstId(HostId hostId);
+        public IEnumerable<Menu> GetByHostId(HostId hostId);
     }
 }

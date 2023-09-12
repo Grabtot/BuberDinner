@@ -18,7 +18,7 @@ namespace BuberDinner.Application.Menus.Queries.AllHostMenus
         {
             HostId hostId = HostId.Create(request.HostId);
 
-            IEnumerable<Menu> menus = _menuRepository.GetByHstId(hostId);
+            IEnumerable<Menu> menus = _menuRepository.GetByHostId(hostId);
 
             return await Task.FromResult(menus);
         }

@@ -11,9 +11,9 @@ namespace BuberDinner.Infrastructure.Persistence.Repositories
         {
         }
 
-        public IEnumerable<Menu> GetByHstId(HostId hostId)
+        public IEnumerable<Menu> GetByHostId(HostId hostId)
         {
-            return Context.Menus.Where(menu => menu.HostId == hostId);
+            return Context.Menus.Where(menu => menu.HostId == hostId).ToArray();
         }
     }
 }
