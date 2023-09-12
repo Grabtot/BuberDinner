@@ -1,7 +1,7 @@
 ﻿using BuberDinner.Application.Common.Validation;
 using FluentValidation;
 
-namespace BuberDinner.Application.Menus.Queries
+namespace BuberDinner.Application.Menus.Queries.Details
 {
     public class MenuDetailsQueryValidator : AbstractValidator<MenuDetailsQuery>
     {

@@ -13,11 +13,6 @@ namespace BuberDinner.Infrastructure.Persistence.Repositories
             Context = context;
         }
 
-        public virtual IEnumerable<TEntity> GetAll()
-        {
-            return Context.Set<TEntity>().ToList();
-        }
-
         public virtual void Add(TEntity menu)
         {
             Context.Add(menu);

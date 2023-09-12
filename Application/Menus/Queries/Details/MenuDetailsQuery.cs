@@ -2,7 +2,7 @@
 using ErrorOr;
 using MediatR;
 
-namespace BuberDinner.Application.Menus.Queries
+namespace BuberDinner.Application.Menus.Queries.Details
 {
     public record MenuDetailsQuery(
         string MenuId) : IRequest<ErrorOr<Menu>>;

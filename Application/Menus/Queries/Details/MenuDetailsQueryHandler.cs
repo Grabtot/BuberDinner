@@ -4,7 +4,7 @@ using BuberDinner.Domain.Menu.ValueObjects;
 using ErrorOr;
 using MediatR;
 
-namespace BuberDinner.Application.Menus.Queries
+namespace BuberDinner.Application.Menus.Queries.Details
 {
     public class MenuDetailsQueryHandler : IRequestHandler<MenuDetailsQuery, ErrorOr<Menu>>
     {

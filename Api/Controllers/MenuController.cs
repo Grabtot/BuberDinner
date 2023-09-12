@@ -1,8 +1,4 @@
-﻿using BuberDinner.Application.Menus.Commands.CreateMenu;
-using BuberDinner.Application.Menus.Queries;
-using BuberDinner.Contracts.Menus;
-using BuberDinner.Domain.Menu;
-using ErrorOr;
+﻿using ErrorOr;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +15,13 @@ namespace BuberDinner.Api.Controllers
             _mapper = mapper;
             _sender = sender;
         }
+
+        [HttpGet]
+        public Task<IActionResult> GetAll()
+        {
+            return _sender.Send(new AllHostMenusQuery)
+        }
+
         [HttpGet("{menuId}")]
         public async Task<IActionResult> Get(string menuId)
         {
