@@ -1,4 +1,6 @@
 ﻿using BuberDinner.Domain.Menu;
+using BuberDinner.Domain.Models;
+using BuberDinner.Infrastructure.Persistence.Interceptors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -6,13 +8,17 @@ namespace BuberDinner.Infrastructure.Persistence
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        private readonly PublishDomainEventsInterceptor _publishDomainEventsInterceptor;
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, PublishDomainEventsInterceptor publishDomainEventsInterceptor) : base(options)
         {
+            _publishDomainEventsInterceptor = publishDomainEventsInterceptor;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+            modelBuilder
+                .Ignore<List<IDomainEvent>>()
+                .ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
             modelBuilder.Model.GetEntityTypes()
                 .SelectMany(e => e.GetProperties())
@@ -23,6 +29,11 @@ namespace BuberDinner.Infrastructure.Persistence
             base.OnModelCreating(modelBuilder);
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.AddInterceptors(_publishDomainEventsInterceptor);
+            base.OnConfiguring(optionsBuilder);
+        }
         public DbSet<Menu> Menus { get; set; } = null!;
     }
 }

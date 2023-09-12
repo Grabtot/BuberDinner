@@ -17,7 +17,7 @@ namespace BuberDinner.Api.Controllers
             (int statusCode, string message) = exception switch
             {
                 IServiceException serviceException => (serviceException.StatusCode, serviceException.Message),
-                InvalidOperationException ex => (StatusCodes.Status400BadRequest, ex.Message),
+                InvalidOperationException => (StatusCodes.Status500InternalServerError, exception.Message),
                 _ => (StatusCodes.Status500InternalServerError, "An error occurred while processing your request")
             };
 

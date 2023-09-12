@@ -1,4 +1,4 @@
-﻿using BuberDinner.Domain.Entities;
+﻿using BuberDinner.Domain.User;
 using BuberDinner.Domain.User.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

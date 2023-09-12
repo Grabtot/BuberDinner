@@ -1,6 +1,6 @@
 ﻿using BuberDinner.Domain.Models;
 
-namespace BuberDinner.Domain.Common.ValueObjects
+namespace BuberDinner.Domain.Guest.ValueObjects
 {
     public class RatingId : ValueObject
     {

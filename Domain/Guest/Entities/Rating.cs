@@ -1,5 +1,5 @@
-﻿using BuberDinner.Domain.Common.ValueObjects;
-using BuberDinner.Domain.Dinner.ValueObjects;
+﻿using BuberDinner.Domain.Dinner.ValueObjects;
+using BuberDinner.Domain.Guest.ValueObjects;
 using BuberDinner.Domain.Host.ValueObjects;
 using BuberDinner.Domain.Models;
 

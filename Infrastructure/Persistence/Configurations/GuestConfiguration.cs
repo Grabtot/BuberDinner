@@ -1,5 +1,4 @@
-﻿using BuberDinner.Domain.Common.ValueObjects;
-using BuberDinner.Domain.Guest;
+﻿using BuberDinner.Domain.Guest;
 using BuberDinner.Domain.Guest.ValueObjects;
 using BuberDinner.Infrastructure.Persistence.Configurations.Common;
 using Microsoft.EntityFrameworkCore;
