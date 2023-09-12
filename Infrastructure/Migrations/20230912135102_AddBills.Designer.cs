@@ -4,6 +4,7 @@ using BuberDinner.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuberDinner.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230912135102_AddBills")]
+    partial class AddBills
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,38 +105,6 @@ namespace BuberDinner.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Dinner");
-                });
-
-            modelBuilder.Entity("BuberDinner.Domain.Entities.User", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("BuberDinner.Domain.Guest.Guest", b =>
@@ -225,38 +196,6 @@ namespace BuberDinner.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Menus", (string)null);
-                });
-
-            modelBuilder.Entity("BuberDinner.Domain.MenuReview.MenuReview", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("DinnerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("GuestId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("HostId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MenuId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("UpdatedDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MenuReview");
                 });
 
             modelBuilder.Entity("BuberDinner.Domain.Bill.Bill", b =>
@@ -733,28 +672,6 @@ namespace BuberDinner.Infrastructure.Migrations
                     b.Navigation("MenuReviewIds");
 
                     b.Navigation("Sections");
-                });
-
-            modelBuilder.Entity("BuberDinner.Domain.MenuReview.MenuReview", b =>
-                {
-                    b.OwnsOne("BuberDinner.Domain.Common.ValueObjects.Rating", "Rating", b1 =>
-                        {
-                            b1.Property<Guid>("MenuReviewId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<double>("Value")
-                                .HasColumnType("float");
-
-                            b1.HasKey("MenuReviewId");
-
-                            b1.ToTable("MenuReview");
-
-                            b1.WithOwner()
-                                .HasForeignKey("MenuReviewId");
-                        });
-
-                    b.Navigation("Rating")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
