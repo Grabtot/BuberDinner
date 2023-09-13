@@ -3,7 +3,6 @@ using BuberDinner.Domain.Host.ValueObjects;
 using BuberDinner.Domain.Menu;
 using BuberDinner.Domain.Menu.Entities;
 using ErrorOr;
-using MapsterMapper;
 using MediatR;
 
 namespace BuberDinner.Application.Menus.Commands.CreateMenu
@@ -11,12 +10,10 @@ namespace BuberDinner.Application.Menus.Commands.CreateMenu
     public class CreateMenuCommandHandler : IRequestHandler<CreateMenuCommand, ErrorOr<Menu>>
     {
         private readonly IMenuRepository _menuRepository;
-        private readonly IMapper _mapper;
 
-        public CreateMenuCommandHandler(IMenuRepository menuRepository, IMapper mapper)
+        public CreateMenuCommandHandler(IMenuRepository menuRepository)
         {
             _menuRepository = menuRepository;
-            _mapper = mapper;
         }
 
         public async Task<ErrorOr<Menu>> Handle(CreateMenuCommand command, CancellationToken cancellationToken)
